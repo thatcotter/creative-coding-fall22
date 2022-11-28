@@ -1,7 +1,7 @@
 
 // The serviceUuid must match the serviceUuid of the device you would like to connect
 // https://www.uuidgenerator.net/
-const serviceUuid = "put uuis here";
+const serviceUuid = "add your service uuid here, make sure it matches your aduino's service uuid";
 let myBLE;
 let isConnected = false;
 
@@ -53,20 +53,20 @@ function gotCharacteristics(error, characteristics) {
   // Add a event handler when the device is disconnected
   myBLE.onDisconnected(onDisconnected)
 
-
   // assign characteristic and value read callback
   buttonCharacteristic = characteristics[0];
+
   // Read the value of the first characteristic
-  myBLE.read(buttonCharacteristic, gotValue);
+  myBLE.read(buttonCharacteristic, gotButtonValue);
 }
 
 // A function that will be called once got values
-function gotValue(error, value) {
+function gotButtonValue(error, value) {
   if (error) console.log('error: ', error);
   console.log('value: ', value);
   buttonValue = value;
   // After getting a value, call p5ble.read() again to get the value again
-  myBLE.read(buttonCharacteristic, gotValue);
+  myBLE.read(buttonCharacteristic, gotButtonValue);
   // You can also pass in the dataType
   // Options: 'unit8', 'uint16', 'uint32', 'int8', 'int16', 'int32', 'float32', 'float64', 'string'
   // myBLE.read(myCharacteristic, 'string', gotValue);
